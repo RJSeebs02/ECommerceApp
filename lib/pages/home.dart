@@ -51,7 +51,7 @@ class HomePage extends StatelessWidget {
                   fontSize: 20,
                 ),
                 decoration: InputDecoration(
-                  labelText: 'Seva gwapo',
+                  labelText: 'Search',
                   labelStyle: const TextStyle(
                     color: AppColors.defaultText,
                     fontSize: 20,
