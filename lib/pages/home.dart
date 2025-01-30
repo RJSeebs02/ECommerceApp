@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import '../utils/theme.dart';
+import 'communityposts.dart';
+import 'upcoming.dart';
+import 'customize.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -11,12 +14,13 @@ class HomePage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              // Header Section
               Row(
                 children: [
-                  const Expanded(
+                  Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
+                      children: const [
                         Text(
                           'Hello,',
                           style: TextStyle(
@@ -38,13 +42,16 @@ class HomePage extends StatelessWidget {
                   IconButton(
                     icon: const Icon(
                       Icons.sms_outlined,
-                      size: 50,
-                      color: AppColors.defaultText,),
+                      size: 30,
+                      color: AppColors.defaultText,
+                    ),
                     onPressed: () {},
                   ),
                 ],
               ),
               const SizedBox(height: 20),
+
+              // Search Bar
               TextField(
                 style: const TextStyle(
                   color: AppColors.defaultText,
@@ -61,13 +68,10 @@ class HomePage extends StatelessWidget {
                     color: AppColors.defaultText,
                     fontSize: 20,
                   ),
-                  prefixIcon: const Padding(
-                    padding: EdgeInsets.only(left: 10.0, right: 10.0),
-                    child: Icon(
-                      Icons.search,
-                      color: AppColors.defaultText,
-                      size: 40,
-                    ),
+                  prefixIcon: const Icon(
+                    Icons.search,
+                    color: AppColors.defaultText,
+                    size: 30,
                   ),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
@@ -81,171 +85,114 @@ class HomePage extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10),
                     borderSide: const BorderSide(color: AppColors.secondaryBg),
                   ),
-                  contentPadding: const EdgeInsets.symmetric(vertical: 25, horizontal: 25),
+                  contentPadding: const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
                   filled: true,
                   fillColor: AppColors.secondaryBg,
                   floatingLabelBehavior: FloatingLabelBehavior.never,
                 ),
               ),
               const SizedBox(height: 20),
-              Align(
-                alignment: Alignment.topCenter,
-                child: Container(
-                  width: MediaQuery.of(context).size.width * 0.7,
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Column(
-                          children: [
-                            Container(
-                              padding: const EdgeInsets.all(10),
-                              decoration: const BoxDecoration(
-                                color: AppColors.secondaryBg,
-                                shape: BoxShape.circle,
-                              ),
-                              child: IconButton(
-                                icon: const Icon(
-                                  Icons.broadcast_on_personal,
-                                  size: 30,
-                                  color: AppColors.primary,
-                                ),
-                                onPressed: () {},
-                              ),
-                            ),
-                            const SizedBox(height: 10),
-                            const Text(
-                              'Community',
-                              style: TextStyle(
-                                fontSize: 15,
-                                color: AppColors.defaultText,
-                              ),
-                            ),
-                          ],
-                        )
-                      ),
-                      Expanded(
-                        child: Column(
-                          children: [
-                            Container(
-                              padding: const EdgeInsets.all(10),
-                              decoration: const BoxDecoration(
-                                color: AppColors.secondaryBg,
-                                shape: BoxShape.circle,
-                              ),
-                              child: IconButton(
-                                icon: const Icon(
-                                  Icons.dataset_linked,
-                                  size: 30,
-                                  color: AppColors.primary,
-                                ),
-                                onPressed: () {},
-                              ),
-                            ),
-                            const SizedBox(height: 10),
-                            const Text(
-                              'Upcoming',
-                              style: TextStyle(
-                                fontSize: 15,
-                                color: AppColors.defaultText,
-                              ),
-                            ),
-                          ],
-                        )
-                      ),
-                      Expanded(
-                        child: Column(
-                          children: [
-                            Container(
-                              padding: const EdgeInsets.all(10),
-                              decoration: const BoxDecoration(
-                                color: AppColors.secondaryBg,
-                                shape: BoxShape.circle,
-                              ),
-                              child: IconButton(
-                                icon: const Icon(
-                                  Icons.rebase_edit,
-                                  size: 30,
-                                  color: AppColors.primary,
-                                ),
-                                onPressed: () {},
-                              ),
-                            ),
-                            const SizedBox(height: 10),
-                            const Text(
-                              'Customize',
-                              style: TextStyle(
-                                fontSize: 15,
-                                color: AppColors.defaultText,
-                              ),
-                            ),
-                          ],
-                        )
-                      )
-                    ],
+
+              // Quick Navigation Buttons
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  _buildQuickNavButton(
+                    context,
+                    icon: Icons.broadcast_on_personal,
+                    label: 'Community',
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => CommunityPage(),
+                        ),
+                      );
+                    },
                   ),
-                ),
+                  _buildQuickNavButton(
+                    context,
+                    icon: Icons.dataset_linked,
+                    label: 'Upcoming',
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => UpcomingPage(),
+                        ),
+                      );
+                    },
+                  ),
+                  _buildQuickNavButton(
+                    context,
+                    icon: Icons.rebase_edit,
+                    label: 'Customize',
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ProductCustomizationPage(),
+                        ),
+                      );
+                    },
+                  ),
+                ],
               ),
               const SizedBox(height: 40),
+
+              // Your Posts Section
               Container(
                 decoration: BoxDecoration(
                   color: AppColors.primary,
-                  borderRadius: BorderRadius.circular(15)
+                  borderRadius: BorderRadius.circular(15),
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Column(
-                    children: [
-                      const Row(
-                        children: [
-                          Text(
-                            'Your Posts',
-                            style: TextStyle(
-                              color: AppColors.secondary,
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Spacer(),
-                          Icon(
-                            Icons.arrow_forward_ios,
-                            size: 30,
+                padding: const EdgeInsets.all(20.0),
+                child: Column(
+                  children: [
+                    Row(
+                      children: const [
+                        Text(
+                          'Your Posts',
+                          style: TextStyle(
                             color: AppColors.secondary,
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
                           ),
-                        ],
-                      ),
-                      const SizedBox(height: 20),
-                      SizedBox(
-                        width: double.infinity,
-                        height: 1,
-                        child: Container(
-                          color: AppColors.tertiary,
                         ),
-                      ),
-                      const SizedBox(height: 20),
-                      const Row(
-                        children: [
-                          Icon(
-                            Icons.access_time,
-                            size: 20,
+                        Spacer(),
+                        Icon(
+                          Icons.arrow_forward_ios,
+                          size: 20,
+                          color: AppColors.secondary,
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 20),
+                    Divider(color: AppColors.tertiary),
+                    const SizedBox(height: 20),
+                    Row(
+                      children: const [
+                        Icon(
+                          Icons.access_time,
+                          size: 20,
+                          color: AppColors.secondary,
+                        ),
+                        SizedBox(width: 10),
+                        Text(
+                          'Lorem Ipsum',
+                          style: TextStyle(
                             color: AppColors.secondary,
+                            fontSize: 15,
                           ),
-                          Padding(
-                            padding: EdgeInsets.only(left: 10.0),
-                            child: Text(
-                              'Lorem Ipsum',
-                              style: TextStyle(
-                                color: AppColors.secondary,
-                                fontSize: 15,
-                              ),
-                            ),
-                          )
-                        ],
-                      )
-                    ],
-                  ),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
               ),
               const SizedBox(height: 40),
+
+              // What's New Section
               const Text(
                 'What\'s New?',
                 style: TextStyle(
@@ -258,6 +205,38 @@ class HomePage extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  // Helper Widget for Quick Navigation Buttons
+  Widget _buildQuickNavButton(BuildContext context,
+      {required IconData icon, required String label, required VoidCallback onPressed}) {
+    return Column(
+      children: [
+        Container(
+          padding: const EdgeInsets.all(10),
+          decoration: const BoxDecoration(
+            color: AppColors.secondaryBg,
+            shape: BoxShape.circle,
+          ),
+          child: IconButton(
+            icon: Icon(
+              icon,
+              size: 30,
+              color: AppColors.primary,
+            ),
+            onPressed: onPressed,
+          ),
+        ),
+        const SizedBox(height: 10),
+        Text(
+          label,
+          style: const TextStyle(
+            fontSize: 15,
+            color: AppColors.defaultText,
+          ),
+        ),
+      ],
     );
   }
 }

@@ -4,7 +4,6 @@ import 'pages/login.dart';
 import 'pages/registration.dart';
 import 'pages/dashboard.dart';
 
-
 void main() {
   runApp(MyApp());
 }
@@ -13,7 +12,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Ecommerce App',
+      title: 'Banger Labz',
       theme: appTheme,
       initialRoute: '/',
       routes: {
