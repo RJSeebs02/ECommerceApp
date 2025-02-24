@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:ecommerceapp/pages/home.dart';
+import 'package:ecommerceapp/pages/weekly.dart' as weekly;
+import 'package:ecommerceapp/pages/whatsnew.dart';
 
 class UpcomingPage extends StatelessWidget {
   const UpcomingPage({Key? key}) : super(key: key);
@@ -7,45 +10,51 @@ class UpcomingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.white, 
       body: SafeArea(
         child: Column(
           children: [
-            // Header
+            // Header with back button going to HomePage
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Row(
                 children: [
                   IconButton(
-                    icon: const Icon(Icons.arrow_back),
-                    onPressed: () => Navigator.pop(context),
+                    icon: const Icon(Icons.arrow_back, color: Colors.green),
+                    onPressed: () {
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(builder: (context) => const HomePage()),
+                        (route) => false,
+                      );
+                    },
                   ),
-                  const Text(
+                  Text(
                     'Upcoming Posts',
-                    style: TextStyle(
+                    style: GoogleFonts.inter(
                       fontSize: 18,
                       fontWeight: FontWeight.w600,
+                      color: Colors.green[800],
                     ),
                   ),
                   const Spacer(),
                   IconButton(
-                    icon: const Icon(Icons.shopping_cart_outlined),
+                    icon: const Icon(Icons.shopping_cart_outlined, color: Colors.green),
                     onPressed: () {},
                   ),
                 ],
               ),
             ),
-
             // Search Bar
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: TextField(
                 decoration: InputDecoration(
                   hintText: 'Search',
-                  hintStyle: TextStyle(color: Colors.grey[400]),
-                  prefixIcon: Icon(Icons.search, color: Colors.grey[400]),
+                  hintStyle: TextStyle(color: Colors.green[300]),
+                  prefixIcon: Icon(Icons.search, color: Colors.green[300]),
                   filled: true,
-                  fillColor: Colors.grey[100],
+                  fillColor: Colors.green[50],
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
                     borderSide: BorderSide.none,
@@ -54,43 +63,82 @@ class UpcomingPage extends StatelessWidget {
                 ),
               ),
             ),
-
-            // Tabs
+            // Tabs Row – Order: What's New, Upcoming Pieces (active), Weekly Specials
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    'Schedule',
-                    style: TextStyle(color: Colors.grey[600]),
-                  ),
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 8,
-                    ),
-                    decoration: BoxDecoration(
-                      color: Colors.blue[100],
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: const Text(
-                      'Upcoming Pieces',
-                      style: TextStyle(
-                        color: Colors.blue,
+                  // "What's New" tab with fade transition
+                  InkWell(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        PageRouteBuilder(
+                          pageBuilder: (context, animation, secondaryAnimation) =>
+                              const WhatsNewPage(),
+                          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                            return FadeTransition(opacity: animation, child: child);
+                          },
+                          transitionDuration: const Duration(milliseconds: 300),
+                        ),
+                      );
+                    },
+                    child: Text(
+                      "What's New",
+                      style: GoogleFonts.inter(
+                        color: Colors.green[700],
                         fontWeight: FontWeight.w500,
                       ),
                     ),
                   ),
-                  Text(
-                    'Weekly Special',
-                    style: TextStyle(color: Colors.grey[600]),
+                  // Active tab: Upcoming Pieces – pill in the middle
+                  InkWell(
+                    onTap: () {
+                      // Already on UpcomingPage.
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                      decoration: BoxDecoration(
+                        color: Colors.green[100],
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Text(
+                        'Upcoming Pieces',
+                        style: GoogleFonts.inter(
+                          color: Colors.green,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                  ),
+                  // "Weekly Specials" tab with fade transition
+                  InkWell(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        PageRouteBuilder(
+                          pageBuilder: (context, animation, secondaryAnimation) =>
+                              weekly.WeeklyPage(),
+                          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                            return FadeTransition(opacity: animation, child: child);
+                          },
+                          transitionDuration: const Duration(milliseconds: 300),
+                        ),
+                      );
+                    },
+                    child: Text(
+                      'Weekly Specials',
+                      style: GoogleFonts.inter(
+                        color: Colors.green[700],
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
                   ),
                 ],
               ),
             ),
-
-            // List of Upcoming Pieces
+            // List of Upcoming Pieces items
             Expanded(
               child: ListView.builder(
                 itemCount: 3,
@@ -100,7 +148,7 @@ class UpcomingPage extends StatelessWidget {
                     margin: const EdgeInsets.only(bottom: 16),
                     padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(
-                      color: Colors.grey[50],
+                      color: Colors.green[50],
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Column(
@@ -112,13 +160,10 @@ class UpcomingPage extends StatelessWidget {
                               width: 60,
                               height: 60,
                               decoration: BoxDecoration(
-                                color: Colors.blue[100],
+                                color: Colors.green[100],
                                 borderRadius: BorderRadius.circular(8),
                               ),
-                              child: const Icon(
-                                Icons.image,
-                                color: Colors.blue,
-                              ),
+                              child: const Icon(Icons.image, color: Colors.green),
                             ),
                             const SizedBox(width: 12),
                             Column(
@@ -126,16 +171,17 @@ class UpcomingPage extends StatelessWidget {
                               children: [
                                 Text(
                                   'Design ${index + 1}',
-                                  style: const TextStyle(
+                                  style: GoogleFonts.inter(
                                     fontWeight: FontWeight.w600,
                                     fontSize: 16,
+                                    color: Colors.green[800],
                                   ),
                                 ),
                                 const SizedBox(height: 4),
                                 Text(
                                   'Lorem ipsum',
-                                  style: TextStyle(
-                                    color: Colors.grey[600],
+                                  style: GoogleFonts.inter(
+                                    color: Colors.green[700],
                                     fontSize: 14,
                                   ),
                                 ),
@@ -146,24 +192,22 @@ class UpcomingPage extends StatelessWidget {
                         const SizedBox(height: 12),
                         Row(
                           children: [
-                            Icon(Icons.calendar_today,
-                                size: 16, color: Colors.grey[600]),
+                            Icon(Icons.calendar_today, size: 16, color: Colors.green[700]),
                             const SizedBox(width: 4),
                             Text(
                               'Sunday, 12 June',
-                              style: TextStyle(
-                                color: Colors.grey[600],
+                              style: GoogleFonts.inter(
+                                color: Colors.green[700],
                                 fontSize: 14,
                               ),
                             ),
                             const SizedBox(width: 16),
-                            Icon(Icons.access_time,
-                                size: 16, color: Colors.grey[600]),
+                            Icon(Icons.access_time, size: 16, color: Colors.green[700]),
                             const SizedBox(width: 4),
                             Text(
                               '11:00 - 12:00 AM',
-                              style: TextStyle(
-                                color: Colors.grey[600],
+                              style: GoogleFonts.inter(
+                                color: Colors.green[700],
                                 fontSize: 14,
                               ),
                             ),
@@ -172,11 +216,13 @@ class UpcomingPage extends StatelessWidget {
                         const SizedBox(height: 12),
                         Center(
                           child: TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              // Detail action
+                            },
                             child: Text(
                               'Detail',
-                              style: TextStyle(
-                                color: Colors.blue[400],
+                              style: GoogleFonts.inter(
+                                color: Colors.green[600],
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
