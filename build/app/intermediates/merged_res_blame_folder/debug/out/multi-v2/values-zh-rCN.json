@@ -1,16 +1,16 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.ecommerceapp-mergeDebugResources-9:/values-zh-rCN/values-zh-rCN.xml",
+            "outputFile": "com.example.bangerlabz.app-mergeDebugResources-24:/values-zh-rCN/values-zh-rCN.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\allen\\.gradle\\caches\\transforms-3\\284a410c767ad6c7a2b0ffc8d8d85981\\transformed\\core-1.6.0\\res\\values-zh-rCN\\values-zh-rCN.xml",
+                    "source": "/Users/qiezera/.gradle/caches/transforms-3/350cc17d0fea3d8cb21fa3e78a3e476b/transformed/core-1.13.1/res/values-zh-rCN/values-zh-rCN.xml",
                     "from": {
-                        "startLines": "2",
-                        "startColumns": "4",
-                        "startOffsets": "55",
-                        "endColumns": "100",
-                        "endOffsets": "151"
+                        "startLines": "2,3,4,5,6,7,8,9",
+                        "startColumns": "4,4,4,4,4,4,4,4",
+                        "startOffsets": "55,147,248,342,436,529,623,719",
+                        "endColumns": "91,100,93,93,92,93,95,100",
+                        "endOffsets": "142,243,337,431,524,618,714,815"
                     }
                 }
             ]
