@@ -10,6 +10,11 @@ class AppColors {
   static const Color borderColor = Color.fromARGB(255, 224, 224, 224);
   static const Color secondaryBg = Color(0xFFFAFAFA);
   static const Color logout = Color.fromARGB(255, 255, 96, 96);
+
+  static const Color primaryGreen = const Color(0xFF2E7D32); // Deeper green
+  static const Color secondaryGreen = const Color(0xFF43A047); // Medium green
+  static const Color lightGreen = const Color(0xFFE8F5E9); // Light green background
+  static const Color accentGreen = const Color(0xFF81C784);
 }
 
 final ThemeData appTheme = ThemeData(
