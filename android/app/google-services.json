@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "39620182153",
+    "project_id": "banger-labz",
+    "storage_bucket": "banger-labz.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:39620182153:android:0a51dab5e3fe3fed7cc658",
+        "android_client_info": {
+          "package_name": "com.example.bangerlabz"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "39620182153-4r48pol0964btamimu11sim56ln2s2gi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.bangerlabz",
+            "certificate_hash": "8f76d9a05e1b376fffdcc5f71426b09ffe4660bb"
+          }
+        },
+        {
+          "client_id": "39620182153-i8550jb9tr2852fpuelqt58o7ijer8r1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAdVtJ7wqDuoyZ9w1wH5aRbfifRxL5JQAw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "39620182153-i8550jb9tr2852fpuelqt58o7ijer8r1.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "39620182153-54l4797aoi7jffedvmgrfcuad8caoehe.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.bangerlabz"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

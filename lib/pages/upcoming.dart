@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:ecommerceapp/pages/home.dart';
-import 'package:ecommerceapp/pages/weekly.dart' as weekly;
-import 'package:ecommerceapp/pages/whatsnew.dart';
+import 'package:bangerlabz/pages/home.dart';
+import 'package:bangerlabz/pages/weekly.dart' as weekly;
+import 'package:bangerlabz/pages/whatsnew.dart';
 
 class UpcomingPage extends StatelessWidget {
   const UpcomingPage({Key? key}) : super(key: key);

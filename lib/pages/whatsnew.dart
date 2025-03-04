@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:ecommerceapp/pages/home.dart';
-import 'package:ecommerceapp/pages/weekly.dart' as weekly;
-import 'package:ecommerceapp/pages/upcoming.dart' as upcoming;
+import 'package:bangerlabz/pages/home.dart';
+import 'package:bangerlabz/pages/weekly.dart' as weekly;
+import 'package:bangerlabz/pages/upcoming.dart' as upcoming;
 
 class WhatsNewPage extends StatelessWidget {
   const WhatsNewPage({Key? key}) : super(key: key);
