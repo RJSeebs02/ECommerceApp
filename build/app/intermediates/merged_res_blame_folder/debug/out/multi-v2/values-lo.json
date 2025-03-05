@@ -4,7 +4,24 @@
             "outputFile": "com.example.bangerlabz.app-mergeDebugResources-31:/values-lo/values-lo.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\allen\\.gradle\\caches\\transforms-3\\350cc17d0fea3d8cb21fa3e78a3e476b\\transformed\\core-1.13.1\\res\\values-lo\\values-lo.xml",
+                    "source": "/Users/qiezera/.gradle/caches/transforms-3/af35581c8337b2b3743fcdbbbbd33dc9/transformed/browser-1.4.0/res/values-lo/values-lo.xml",
+                    "from": {
+                        "startLines": "2,3,4,5",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "55,153,251,366",
+                        "endColumns": "97,97,114,99",
+                        "endOffsets": "148,246,361,461"
+                    },
+                    "to": {
+                        "startLines": "29,30,31,32",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "3243,3341,3439,3554",
+                        "endColumns": "97,97,114,99",
+                        "endOffsets": "3336,3434,3549,3649"
+                    }
+                },
+                {
+                    "source": "/Users/qiezera/.gradle/caches/transforms-3/350cc17d0fea3d8cb21fa3e78a3e476b/transformed/core-1.13.1/res/values-lo/values-lo.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9",
                         "startColumns": "4,4,4,4,4,4,4,4",
@@ -21,7 +38,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\allen\\.gradle\\caches\\transforms-3\\83b660cd524a3027c0ec817a36e864b4\\transformed\\jetified-play-services-base-18.1.0\\res\\values-lo\\values.xml",
+                    "source": "/Users/qiezera/.gradle/caches/transforms-3/83b660cd524a3027c0ec817a36e864b4/transformed/jetified-play-services-base-18.1.0/res/values-lo/values.xml",
                     "from": {
                         "startLines": "4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20",
                         "startColumns": "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0",
@@ -38,7 +55,17 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\allen\\.gradle\\caches\\transforms-3\\bb7dfcff1455929679b3c063690ad29d\\transformed\\jetified-play-services-basement-18.4.0\\res\\values-lo\\values.xml",
+                    "source": "/Users/qiezera/.gradle/caches/transforms-3/d1af67752d85ed5fb335839ae57727ba/transformed/jetified-credentials-1.2.0-rc01/res/values-lo/values-lo.xml",
+                    "from": {
+                        "startLines": "2,3",
+                        "startColumns": "4,4",
+                        "startOffsets": "55,168",
+                        "endColumns": "112,114",
+                        "endOffsets": "163,278"
+                    }
+                },
+                {
+                    "source": "/Users/qiezera/.gradle/caches/transforms-3/bb7dfcff1455929679b3c063690ad29d/transformed/jetified-play-services-basement-18.4.0/res/values-lo/values.xml",
                     "from": {
                         "startLines": "4",
                         "startColumns": "0",
@@ -52,33 +79,6 @@
                         "startOffsets": "2005",
                         "endColumns": "131",
                         "endOffsets": "2132"
-                    }
-                },
-                {
-                    "source": "C:\\Users\\allen\\.gradle\\caches\\transforms-3\\d1af67752d85ed5fb335839ae57727ba\\transformed\\jetified-credentials-1.2.0-rc01\\res\\values-lo\\values-lo.xml",
-                    "from": {
-                        "startLines": "2,3",
-                        "startColumns": "4,4",
-                        "startOffsets": "55,168",
-                        "endColumns": "112,114",
-                        "endOffsets": "163,278"
-                    }
-                },
-                {
-                    "source": "C:\\Users\\allen\\.gradle\\caches\\transforms-3\\af35581c8337b2b3743fcdbbbbd33dc9\\transformed\\browser-1.4.0\\res\\values-lo\\values-lo.xml",
-                    "from": {
-                        "startLines": "2,3,4,5",
-                        "startColumns": "4,4,4,4",
-                        "startOffsets": "55,153,251,366",
-                        "endColumns": "97,97,114,99",
-                        "endOffsets": "148,246,361,461"
-                    },
-                    "to": {
-                        "startLines": "29,30,31,32",
-                        "startColumns": "4,4,4,4",
-                        "startOffsets": "3243,3341,3439,3554",
-                        "endColumns": "97,97,114,99",
-                        "endOffsets": "3336,3434,3549,3649"
                     }
                 }
             ]

@@ -4,7 +4,7 @@
             "outputFile": "com.example.bangerlabz.app-mergeDebugResources-31:/values-night-v8/values-night-v8.xml",
             "map": [
                 {
-                    "source": "D:\\Allen\\GarDev\\Projects\\ECommerceApp\\android\\app\\src\\main\\res\\values-night\\styles.xml",
+                    "source": "/Users/qiezera/Development/Flutter/ECommerceApp/android/app/src/main/res/values-night/styles.xml",
                     "from": {
                         "startLines": "3,14",
                         "startColumns": "4,4",
