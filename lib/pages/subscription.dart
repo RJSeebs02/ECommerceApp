@@ -211,7 +211,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> with SingleTickerPr
             borderRadius: BorderRadius.circular(20),
             boxShadow: [
               BoxShadow(
-                color: Colors.green.withOpacity(0.3),
+                color: const Color(0xFF46C221).withOpacity(0.3),
                 blurRadius: 15,
                 offset: const Offset(0, 8),
               ),
@@ -314,7 +314,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> with SingleTickerPr
                           borderRadius: BorderRadius.circular(12),
                         ),
                         elevation: 5,
-                        shadowColor: Colors.green.withOpacity(0.3),
+                        shadowColor: const Color(0xFF46C221).withOpacity(0.3),
                       ),
                       child: Text(
                         'Subscribe Now',

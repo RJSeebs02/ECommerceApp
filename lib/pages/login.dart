@@ -29,7 +29,7 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
   late Animation<Offset> _slideAnimation;
   
   // You can still keep the welcome quote if needed.
-  final String welcomeQuote = "Your Quote Begins Here";
+  final String welcomeQuote = "Your Build, We Build";
   
   @override
   void initState() {
@@ -127,7 +127,7 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
                               shape: BoxShape.circle,
                               boxShadow: [
                                 BoxShadow(
-                                  color: Colors.green.withOpacity(0.15),
+                                  color: const Color(0xFF46C221).withOpacity(0.2),
                                   blurRadius: 8,
                                   offset: const Offset(0, 4),
                                 ),
@@ -191,7 +191,7 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
                           child: ElevatedButton(
                             onPressed: _handleEmailSignIn,
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.green.shade600,
+                              backgroundColor: const Color(0xFF46C221),
                               elevation: 4,
                               shadowColor: Colors.green.withOpacity(0.4),
                               shape: RoundedRectangleBorder(
@@ -276,7 +276,7 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
                               TextSpan(
                                 text: 'Sign Up',
                                 style: GoogleFonts.lato(
-                                  color: Colors.green.shade700,
+                                  color: const Color(0xFF46C221),
                                   fontWeight: FontWeight.w700,
                                 ),
                                 recognizer: TapGestureRecognizer()

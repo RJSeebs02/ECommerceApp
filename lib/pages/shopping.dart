@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
+import 'package:bangerlabz/pages/home.dart';
+  
 class ShoppingPage extends StatefulWidget {
   const ShoppingPage({super.key});
   
   @override
   _ShoppingPageState createState() => _ShoppingPageState();
 }
-
+  
 class _ShoppingPageState extends State<ShoppingPage> with SingleTickerProviderStateMixin {
   final TextEditingController _searchController = TextEditingController();
   late AnimationController _animationController;
   
-  // Dummy list of shopping items with categories and images - now with explicit types
+  // Dummy list of shopping items with categories and images.
   final List<Map<String, dynamic>> items = [
     {'name': 'Apple', 'category': 'Fruits', 'price': 1.99, 'rating': 4.5},
     {'name': 'Banana', 'category': 'Fruits', 'price': 2.99, 'rating': 4.2},
@@ -24,7 +25,7 @@ class _ShoppingPageState extends State<ShoppingPage> with SingleTickerProviderSt
     {'name': 'Blueberry', 'category': 'Berries', 'price': 8.99, 'rating': 4.4},
     {'name': 'Watermelon', 'category': 'Fruits', 'price': 9.99, 'rating': 4.9},
   ];
-
+  
   @override
   void initState() {
     super.initState();
@@ -40,18 +41,18 @@ class _ShoppingPageState extends State<ShoppingPage> with SingleTickerProviderSt
     _animationController.dispose();
     super.dispose();
   }
-
+  
   @override
   Widget build(BuildContext context) {
     final filteredItems = items.where((item) =>
       item['name'].toString().toLowerCase().contains(_searchController.text.toLowerCase())).toList();
-
+  
     return Scaffold(
       backgroundColor: Colors.grey[100],
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
-            // Custom App Bar
+            // Custom Header with title.
             SliverToBoxAdapter(
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
@@ -63,7 +64,7 @@ class _ShoppingPageState extends State<ShoppingPage> with SingleTickerProviderSt
                       style: GoogleFonts.poppins(
                         fontSize: 28,
                         fontWeight: FontWeight.bold,
-                        color: Colors.green[800],
+                        color: const Color(0xFF207008),
                       ),
                     ),
                     const SizedBox(height: 8),
@@ -78,7 +79,7 @@ class _ShoppingPageState extends State<ShoppingPage> with SingleTickerProviderSt
                 ),
               ),
             ),
-
+  
             // Search Bar
             SliverToBoxAdapter(
               child: Padding(
@@ -118,7 +119,7 @@ class _ShoppingPageState extends State<ShoppingPage> with SingleTickerProviderSt
                 ),
               ),
             ),
-
+  
             // Categories
             SliverToBoxAdapter(
               child: Container(
@@ -137,7 +138,7 @@ class _ShoppingPageState extends State<ShoppingPage> with SingleTickerProviderSt
                 ),
               ),
             ),
-
+  
             // Grid of products
             SliverPadding(
               padding: const EdgeInsets.all(16),
@@ -162,7 +163,7 @@ class _ShoppingPageState extends State<ShoppingPage> with SingleTickerProviderSt
       ),
     );
   }
-
+  
   Widget _buildCategoryChip(String label, bool isSelected) {
     return Container(
       margin: const EdgeInsets.only(right: 12),
@@ -179,7 +180,7 @@ class _ShoppingPageState extends State<ShoppingPage> with SingleTickerProviderSt
           // Handle category selection
         },
         backgroundColor: Colors.white,
-        selectedColor: Colors.green[600],
+        selectedColor: const Color(0xFF46C221),
         checkmarkColor: Colors.white,
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
         shape: RoundedRectangleBorder(
@@ -191,7 +192,7 @@ class _ShoppingPageState extends State<ShoppingPage> with SingleTickerProviderSt
       ),
     );
   }
-
+  
   Widget _buildProductCard(Map<String, dynamic> product) {
     return Container(
       decoration: BoxDecoration(
@@ -237,16 +238,16 @@ class _ShoppingPageState extends State<ShoppingPage> with SingleTickerProviderSt
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          product['name']?.toString() ?? '', // Fixed: proper type casting
+                          product['name']?.toString() ?? '',
                           style: GoogleFonts.poppins(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
-                            color: Colors.green[800],
+                            color: const Color(0xFF207008),
                           ),
                         ),
                         const SizedBox(height: 4),
                         Text(
-                          product['category']?.toString() ?? '', // Fixed: proper type casting
+                          product['category']?.toString() ?? '',
                           style: GoogleFonts.poppins(
                             fontSize: 12,
                             color: Colors.grey[600],
@@ -280,7 +281,7 @@ class _ShoppingPageState extends State<ShoppingPage> with SingleTickerProviderSt
                             ),
                             Container(
                               decoration: BoxDecoration(
-                                color: Colors.green[600],
+                                color: const Color(0xFF46C221),
                                 borderRadius: BorderRadius.circular(12),
                               ),
                               child: IconButton(
@@ -309,7 +310,7 @@ class _ShoppingPageState extends State<ShoppingPage> with SingleTickerProviderSt
               child: IconButton(
                 icon: Icon(
                   Icons.favorite_border,
-                  color: Colors.green[600],
+                  color: const Color(0xFF46C221),
                 ),
                 onPressed: () {
                   // Handle favorite

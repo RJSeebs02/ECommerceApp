@@ -82,7 +82,7 @@ class PastPostsPage extends StatelessWidget {
                         style: GoogleFonts.inter(
                           fontWeight: FontWeight.bold,
                           fontSize: 16,
-                          color: Colors.green.shade800,
+                          color: const Color(0xFF207008),
                         ),
                       ),
                     ),

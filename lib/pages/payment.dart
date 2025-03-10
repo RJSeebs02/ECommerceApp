@@ -191,7 +191,7 @@ class _PaymentPageState extends State<PaymentPage> with SingleTickerProviderStat
           padding: const EdgeInsets.all(16.0),
           child: Row(
             children: [
-              const Icon(Icons.info_outline, color: Colors.blue),
+              const Icon(Icons.info_outline, color: const Color(0xFF46C221)),
               const SizedBox(width: 12),
               Expanded(
                 child: Column(

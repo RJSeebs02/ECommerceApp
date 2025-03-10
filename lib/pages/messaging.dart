@@ -26,7 +26,7 @@ class _MessagingPageState extends State<MessagingPage> with SingleTickerProvider
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: AppColors.primary,
+        backgroundColor:const Color(0xFF46C221),
         elevation: 0,
         title: Text(
           'Messages',
@@ -36,15 +36,17 @@ class _MessagingPageState extends State<MessagingPage> with SingleTickerProvider
             color: Colors.white,
           ),
         ),
-        bottom: TabBar(
-          controller: _tabController,
+       bottom: TabBar(
+         controller: _tabController,
           indicatorColor: Colors.white,
-          labelStyle: GoogleFonts.outfit(fontSize: 16, fontWeight: FontWeight.w600),
-          tabs: [
-            Tab(text: 'Private'),
-            Tab(text: 'Community'),
-          ],
-        ),
+           labelColor: Colors.white, // Set active tab text color to white
+            unselectedLabelColor: Colors.white, // Set inactive tab text color to white
+              labelStyle: GoogleFonts.outfit(fontSize: 16, fontWeight: FontWeight.w600),
+              tabs: [
+              Tab(text: 'Private'),
+              Tab(text: 'Community'),
+             ],
+          ),
       ),
       body: TabBarView(
         controller: _tabController,
@@ -69,10 +71,10 @@ class _MessagingPageState extends State<MessagingPage> with SingleTickerProvider
               itemBuilder: (context, index) {
                 return ListTile(
                   leading: CircleAvatar(
-                    backgroundColor: AppColors.primary.withOpacity(0.1),
+                    backgroundColor: const Color(0xFF46C221).withOpacity(0.1),
                     child: Text(
                       'U$index',
-                      style: GoogleFonts.outfit(color: AppColors.primary),
+                      style: GoogleFonts.outfit(color:const Color(0xFF46C221), fontWeight: FontWeight.w600),
                     ),
                   ),
                   title: Text(
@@ -136,7 +138,7 @@ class _MessagingPageState extends State<MessagingPage> with SingleTickerProvider
         padding: const EdgeInsets.all(12),
         constraints: BoxConstraints(maxWidth: 250),
         decoration: BoxDecoration(
-          color: isSentByMe ? AppColors.primary : Colors.grey[200],
+          color: isSentByMe ?const Color(0xFF46C221) : Colors.grey[200],
           borderRadius: BorderRadius.circular(16),
         ),
         child: Column(
@@ -204,7 +206,7 @@ class _MessagingPageState extends State<MessagingPage> with SingleTickerProvider
           ),
           const SizedBox(width: 8),
           CircleAvatar(
-            backgroundColor: AppColors.primary,
+            backgroundColor:const Color(0xFF46C221),
             radius: 24,
             child: IconButton(
               icon: const Icon(Icons.send, color: Colors.white),
@@ -226,7 +228,7 @@ class ChatDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: AppColors.primary,
+        backgroundColor:const Color(0xFF46C221),
         title: Text(
           userName,
           style: GoogleFonts.outfit(fontSize: 18, color: Colors.white),
@@ -267,7 +269,7 @@ class ChatDetailPage extends StatelessWidget {
         padding: const EdgeInsets.all(12),
         constraints: BoxConstraints(maxWidth: 250),
         decoration: BoxDecoration(
-          color: isSentByMe ? AppColors.primary : Colors.grey[200],
+          color: isSentByMe ? const Color(0xFF46C221) : Colors.grey[200],
           borderRadius: BorderRadius.circular(16),
         ),
         child: Column(
@@ -335,7 +337,7 @@ class ChatDetailPage extends StatelessWidget {
           ),
           const SizedBox(width: 8),
           CircleAvatar(
-            backgroundColor: AppColors.primary,
+            backgroundColor: const Color(0xFF46C221),
             radius: 24,
             child: IconButton(
               icon: const Icon(Icons.send, color: Colors.white),

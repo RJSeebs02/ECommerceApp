@@ -36,12 +36,12 @@ class NotificationPage extends StatelessWidget {
                   leading: Container(
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color: AppColors.primary.withOpacity(0.1),
+                      color: const Color(0xFF46C221).withOpacity(0.1),
                     ),
                     padding: const EdgeInsets.all(8),
                     child: Icon(
                       Icons.notifications,
-                      color: AppColors.primary,
+                      color:const Color(0xFF46C221),
                     ),
                   ),
                   title: Text(
