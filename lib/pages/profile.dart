@@ -58,8 +58,6 @@ class _ProfilePageState extends State<ProfilePage> {
   void dispose() {
     _usernameController.dispose();
     _emailController.dispose();
-    _ageController.dispose();
-    _genderController.dispose();
     _phoneController.dispose();
     super.dispose();
   }
@@ -645,6 +643,7 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   void initState() {
     super.initState();
+    _fetchUserDetails();
     // Add listeners to controllers if needed
     _emailController.addListener(() {
       // Implement email validation in real-time

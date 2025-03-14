@@ -86,7 +86,7 @@ class UpcomingPage extends StatelessWidget {
                   ),
                   _buildTab(
                     context, 
-                    'Upcoming Pieces', 
+                    'Upcoming', 
                     true, 
                     () {}
                   ),
