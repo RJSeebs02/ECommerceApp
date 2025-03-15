@@ -314,7 +314,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       fit: BoxFit.cover,
                     )
                   : Image.asset(
-                      '../assets/images/default_profile.webp',
+                      'assets/images/default_profile.webp',
                       width: 120,
                       height: 120,
                       fit: BoxFit.cover,

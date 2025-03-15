@@ -135,7 +135,7 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
                             ),
                             clipBehavior: Clip.hardEdge,
                             child: Image.asset(
-                              'assets/images/lightmode_logo.png',
+                              'assets/images/Lightmode_logo.png',
                               fit: BoxFit.cover,
                             ),
                           ),

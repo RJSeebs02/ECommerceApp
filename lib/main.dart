@@ -95,7 +95,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image.asset(
-                'assets/images/lightmode_logo.png',
+                'assets/images/Lightmode_logo.png',
                 width: 200,
                 height: 200,
               ),
