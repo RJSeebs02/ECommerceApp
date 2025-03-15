@@ -1,0 +1,6 @@
+# Ignore Flutter build files and APKs
+build/
+.dart_tool/
+*.apk
+*.dill
+output-metadata.json
