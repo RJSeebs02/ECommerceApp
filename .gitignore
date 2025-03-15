@@ -4,3 +4,15 @@ build/
 *.apk
 *.dill
 output-metadata.json
+
+# Flutter/Dart specific
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+android/.gradle/
+android/app/debug/
+android/app/profile/
+android/app/release/
+pubspec.lock
+.idea/
+
