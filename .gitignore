@@ -1,11 +1,10 @@
-# Ignore Flutter build files and APKs
 build/
 .dart_tool/
 *.apk
 *.dill
 output-metadata.json
-
-# Flutter/Dart specific
+*.ipa
+pubspec.lock
 .flutter-plugins
 .flutter-plugins-dependencies
 .packages
