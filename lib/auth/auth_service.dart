@@ -22,8 +22,11 @@ class AuthService {
 
       User? user = userCredential.user;
       if (user != null) {
-        // Step 2: Try to store user details in Firestore
+        print("✅ User created successfully: ${user.uid}");
+
+        // ✅ Step 2: Store user details in Firestore
         await _firestore.collection('users').doc(user.uid).set({
+          'uid': user.uid,  // ✅ Store UID for reference
           'first_name': firstName,
           'last_name': lastName,
           'username': userName,
@@ -34,15 +37,17 @@ class AuthService {
           'created_at': FieldValue.serverTimestamp(),
         });
 
-        print("User successfully saved to Firestore!");
+        print("✅ User successfully saved to Firestore!");
         return user;
+      } else {
+        print("❌ Firebase Auth returned a null user.");
       }
     } on FirebaseAuthException catch (e) {
-      print("Firebase Auth Error: $e");
+      print("🔥 Firebase Auth Error: ${e.code} - ${e.message}");
     } on FirebaseException catch (e) {
-      print("Firestore Error: $e"); // This will catch Firestore write issues
+      print("🔥 Firestore Error: ${e.code} - ${e.message}");
     } catch (e) {
-      print("Unknown Error: $e");
+      print("🔥 Unknown Error: $e");
     }
     return null;
   }
@@ -84,25 +89,28 @@ class AuthService {
       final User? user = userCredential.user;
 
       if (user != null) {
-        // Check if user already exists in Firestore
-        DocumentSnapshot userDoc = await _firestore.collection('users').doc(user.uid).get();
+      String uid = user.uid; // ✅ Get the UID from Firebase Auth
 
-        if (!userDoc.exists) {
-          // Save new Google sign-in user to Firestore
-          await _firestore.collection('users').doc(user.uid).set({
-            'first_name': user.displayName?.split(" ").first ?? '',
-            'last_name': user.displayName?.split(" ").last ?? '',
-            'email': user.email,
-            'phone': user.phoneNumber ?? '',
-            'profile_picture': user.photoURL ?? '',
-            'created_at': FieldValue.serverTimestamp(),
-            'provider': 'google',
-          });
-          log("Google user details stored in Firestore!");
-        } else {
-          log("Google user already exists in Firestore.");
-        }
+      // ✅ Check if user already exists in Firestore
+      DocumentSnapshot userDoc = await _firestore.collection('users').doc(uid).get();
+
+      if (!userDoc.exists) {
+        // ✅ Save new Google sign-in user to Firestore
+        await _firestore.collection('users').doc(uid).set({
+          'uid': uid, // ✅ Store UID
+          'first_name': user.displayName?.split(" ").first ?? '',
+          'last_name': user.displayName?.split(" ").last ?? '',
+          'email': user.email,
+          'phone': user.phoneNumber ?? '',
+          'profile_picture': user.photoURL ?? '',
+          'created_at': FieldValue.serverTimestamp(),
+          'provider': 'google',
+        });
+        log("✅ Google user details stored in Firestore!");
+      } else {
+        log("✅ Google user already exists in Firestore.");
       }
+    }
 
       return user;
     } catch (e) {
