@@ -23,11 +23,11 @@ class _ProfilePageState extends State<ProfilePage> {
   final AuthService authService = AuthService();
   
   // Controllers for text fields
-  final _usernameController = TextEditingController(text: 'User01');
-  final _emailController = TextEditingController(text: 'user@example.com');
-  final _ageController = TextEditingController(text: '27');
-  final _genderController = TextEditingController(text: 'Male');
-  final _phoneController = TextEditingController(text: '(xxx) xxx-xxxx');
+  final _usernameController = TextEditingController(text: '');
+  final _emailController = TextEditingController(text: '');
+  final _birthdayController = TextEditingController(text: '');
+  final _genderController = TextEditingController(text: '');
+  final _phoneController = TextEditingController(text: '');
 
   @override
   void _fetchUserDetails() async {
@@ -44,7 +44,7 @@ class _ProfilePageState extends State<ProfilePage> {
             _emailController.text = user.email ?? 'No email';
             _usernameController.text = userDoc['username'] ?? 'No username';
             _phoneController.text = userDoc['phone'] ?? 'No phone number';
-            _ageController.text = userDoc['birthday'] ?? 'No birthday';
+            _birthdayController.text = userDoc['birthday'] ?? 'No birthday';
             _genderController.text = userDoc['gender'] ?? 'No gender';
           });
         }
@@ -58,8 +58,6 @@ class _ProfilePageState extends State<ProfilePage> {
   void dispose() {
     _usernameController.dispose();
     _emailController.dispose();
-    _ageController.dispose();
-    _genderController.dispose();
     _phoneController.dispose();
     super.dispose();
   }
@@ -316,7 +314,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       fit: BoxFit.cover,
                     )
                   : Image.asset(
-                      '../assets/images/default_profile.webp',
+                      'assets/images/default_profile.webp',
                       width: 120,
                       height: 120,
                       fit: BoxFit.cover,
@@ -397,10 +395,10 @@ class _ProfilePageState extends State<ProfilePage> {
           children: [
             Expanded(
               child: _buildProfileField(
-                'Age',
-                _ageController,
+                'Birthday',
+                _birthdayController,
                 Icons.calendar_today_outlined,
-                validator: _validateAge,
+                validator: _validateBirthday,
               ),
             ),
             const SizedBox(width: 20),
@@ -496,16 +494,20 @@ class _ProfilePageState extends State<ProfilePage> {
     return null;
   }
 
-  String? _validateAge(String? value) {
+  String? _validateBirthday(String? value) {
     if (value == null || value.isEmpty) {
-      return 'Age is required';
+      return 'Birthday is required';
     }
-    int? age = int.tryParse(value);
-    if (age == null || age < 0 || age > 120) {
-      return 'Enter a valid age';
+
+    try {
+      DateTime.parse(value); // Ensure it's a valid date
+    } catch (e) {
+      return 'Enter a valid date (YYYY-MM-DD)';
     }
+
     return null;
   }
+
 
   String? _validatePhone(String? value) {
     if (value == null || value.isEmpty) {
@@ -597,25 +599,43 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-  void _saveProfile() {
+  void _saveProfile() async {
     if (_formKey.currentState!.validate()) {
       // Show loading indicator
       showDialog(
         context: context,
         barrierDismissible: false,
         builder: (BuildContext context) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
+          return const Center(child: CircularProgressIndicator());
         },
       );
 
-      // Simulate API call
-      Future.delayed(const Duration(seconds: 2), () {
-        Navigator.pop(context); // Dismiss loading indicator
-        setState(() {
-          _isEditing = false;
+      try {
+        // Get the current user's ID
+        String userId = FirebaseAuth.instance.currentUser!.uid;
+
+        // Update Firestore with new profile info
+        await FirebaseFirestore.instance.collection('users').doc(userId).update({
+          //'first_name': _firstNameController.text.trim(),
+          //'last_name': _lastNameController.text.trim(),
+          'email': _emailController.text.trim(),
+          'username': _usernameController.text.trim(),
+          'phone': _phoneController.text.trim(),
+          'birthday': _birthdayController.text.trim(),
+          'gender': _genderController.text.trim(),
+          'updated_at': FieldValue.serverTimestamp(),
         });
+
+        // Ensure the dialog is dismissed
+        if (mounted) {
+          Navigator.of(context, rootNavigator: true).pop();
+        }
+
+        if (mounted) {
+          setState(() {
+            _isEditing = false;
+          });
+        }
 
         // Show success message
         ScaffoldMessenger.of(context).showSnackBar(
@@ -624,13 +644,10 @@ class _ProfilePageState extends State<ProfilePage> {
               children: [
                 const Icon(Icons.check_circle, color: Colors.white),
                 const SizedBox(width: 8),
-                Text(
-                  'Profile updated successfully',
-                  style: GoogleFonts.inter(),
-                ),
+                Text('Profile updated successfully', style: GoogleFonts.inter()),
               ],
             ),
-            backgroundColor:const Color(0xFF46C221),
+            backgroundColor: const Color(0xFF46C221),
             behavior: SnackBarBehavior.floating,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),
@@ -638,13 +655,27 @@ class _ProfilePageState extends State<ProfilePage> {
             margin: const EdgeInsets.all(16),
           ),
         );
-      });
+      } catch (e) {
+        if (mounted) {
+          Navigator.of(context, rootNavigator: true).pop();
+        }
+
+        // Show error message
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Failed to update profile: $e'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
     }
   }
+
 
   @override
   void initState() {
     super.initState();
+    _fetchUserDetails();
     // Add listeners to controllers if needed
     _emailController.addListener(() {
       // Implement email validation in real-time
