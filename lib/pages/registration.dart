@@ -147,7 +147,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 Expanded(
                   child: _buildTextField(
                     label: 'Last Name',
-                    hint: '',
+                    hint: 'e.g. Doe',
                     controller: _lastNameController,
                   ),
                 ),
@@ -156,7 +156,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
             const SizedBox(height: 16),
             _buildTextField(
               label: 'Username',
-              hint: 'e.g. JohnDoe2',
+              hint: 'e.g. JohnDoe23',
               controller: _userNameController,
             ),
             const SizedBox(height: 16),
@@ -165,6 +165,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 Expanded(
                   child: _buildDatePickerField(
                     label: 'Birthday',
+                    hint: 'Year-Month-Day',
                     controller: _birthdayController,
                     onTap: () => _selectDate(context),
                   ),
@@ -284,29 +285,53 @@ class _RegistrationPageState extends State<RegistrationPage> {
   }
 
   Widget _buildDatePickerField({
-    required String label,
-    required TextEditingController controller,
-    required VoidCallback onTap,
-  }) {
-    return GestureDetector(
-      onTap: onTap, // Opens the date picker when tapped
-      child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 12),
-        decoration: BoxDecoration(
-          border: Border.all(color: Colors.grey),
-          borderRadius: BorderRadius.circular(8),
+  required String label,
+  required String hint,
+  required TextEditingController controller,
+  required VoidCallback onTap,
+}) {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Text(
+        label,
+        style: GoogleFonts.outfit(
+          fontSize: 14,
+          fontWeight: FontWeight.w600,
+          color: Colors.grey[700],
+          letterSpacing: -0.2,
         ),
-        child: Text(
-          controller.text.isEmpty ? label : controller.text,
-          style: TextStyle(
-            fontSize: 16,
-            color: controller.text.isEmpty ? Colors.grey : Colors.black,
+      ),
+      const SizedBox(height: 8),
+      GestureDetector(
+        onTap: onTap, // Opens the date picker when tapped
+        child: Container(
+          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+          decoration: BoxDecoration(
+            color: Colors.grey[100],
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(color: Colors.transparent),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                controller.text.isEmpty ? hint : controller.text,
+                style: GoogleFonts.inter(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w400,
+                  color: controller.text.isEmpty ? Colors.grey[400] : Colors.black,
+                  letterSpacing: -0.2,
+                ),
+              ),
+              Icon(Icons.calendar_today, color: Colors.grey[600]),
+            ],
           ),
         ),
       ),
-    );
-  }
-
+    ],
+  );
+}
 
   Widget _buildGenderDropdown() {
     return Column(
@@ -395,7 +420,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
             ),
             suffixIcon: IconButton(
               icon: Icon(
-                _passwordVisible ? FontAwesomeIcons.eyeSlash : FontAwesomeIcons.eye,
+                _passwordVisible ? Icons.visibility : Icons.visibility_off,
                 color: Colors.grey[500],
               ),
               onPressed: () {
@@ -420,6 +445,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
             fontSize: 14,
             fontWeight: FontWeight.w600,
             color: Colors.grey[700],
+            letterSpacing: -0.2,
           ),
         ),
         const SizedBox(height: 8),
@@ -428,24 +454,37 @@ class _RegistrationPageState extends State<RegistrationPage> {
           obscureText: !_ConfirmPasswordVisible,
           style: GoogleFonts.inter(
             fontSize: 15,
+            fontWeight: FontWeight.w400,
+            letterSpacing: -0.2,
           ),
           decoration: InputDecoration(
             hintText: hint,
-            suffixIcon: IconButton(
-              icon: Icon(
-                _ConfirmPasswordVisible ? Icons.visibility : Icons.visibility_off,
-              ),
-              onPressed: () {
-                setState(() {
-                  _ConfirmPasswordVisible = !_ConfirmPasswordVisible;
-                });
-              },
+            hintStyle: GoogleFonts.inter(
+              color: Colors.grey[400],
+              fontSize: 15,
+              fontWeight: FontWeight.w400,
+              letterSpacing: -0.2,
             ),
             filled: true,
             fillColor: Colors.grey[100],
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(16),
               borderSide: BorderSide.none,
+            ),
+            contentPadding: const EdgeInsets.symmetric(
+              vertical: 16,
+              horizontal: 20,
+            ),
+            suffixIcon: IconButton(
+              icon: Icon(
+                _ConfirmPasswordVisible ? Icons.visibility : Icons.visibility_off,
+                color: Colors.grey[500],
+              ),
+              onPressed: () {
+                setState(() {
+                  _ConfirmPasswordVisible = !_ConfirmPasswordVisible;
+                });
+              },
             ),
           ),
         ),

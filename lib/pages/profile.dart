@@ -29,6 +29,12 @@ class _ProfilePageState extends State<ProfilePage> {
   final _genderController = TextEditingController(text: '');
   final _phoneController = TextEditingController(text: '');
 
+  // Define colors for consistency
+  final Color primaryGreen = const Color(0xFF207008); // Deeper green
+  final Color secondaryGreen = const Color(0xFF46C221); // Medium green
+  final Color lightGreen = const Color(0xFFE8F5E9); // Light green background
+  final Color accentGreen = const Color(0xFF78F951); // Accent green
+  
   @override
   void _fetchUserDetails() async {
     User? user = authService.currentUser;
@@ -191,9 +197,9 @@ class _ProfilePageState extends State<ProfilePage> {
       width: double.infinity,
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [const Color(0xFF46C221), const Color(0xFF46C221).withOpacity(0.8)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
+          colors: [primaryGreen, secondaryGreen],
         ),
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
@@ -314,7 +320,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       fit: BoxFit.cover,
                     )
                   : Image.asset(
-                      'assets/images/default_profile.webp',
+                      'assets/images/default_profile.png',
                       width: 120,
                       height: 120,
                       fit: BoxFit.cover,
