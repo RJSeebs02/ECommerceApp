@@ -13,6 +13,12 @@ class _SubscriptionPageState extends State<SubscriptionPage> with SingleTickerPr
   late AnimationController _controller;
   late Animation<double> _scaleAnimation;
 
+  // Define colors for consistency
+  final Color primaryGreen = const Color(0xFF207008); // Deeper green
+  final Color secondaryGreen = const Color(0xFF46C221); // Medium green
+  final Color lightGreen = const Color(0xFFE8F5E9); // Light green background
+  final Color accentGreen = const Color(0xFF78F951); // Accent green
+
   @override
   void initState() {
     super.initState();
@@ -204,9 +210,9 @@ class _SubscriptionPageState extends State<SubscriptionPage> with SingleTickerPr
           width: screenWidth * 0.9,
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [Colors.green.shade700, Colors.green.shade400],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
+              colors: [primaryGreen, secondaryGreen],
             ),
             borderRadius: BorderRadius.circular(20),
             boxShadow: [

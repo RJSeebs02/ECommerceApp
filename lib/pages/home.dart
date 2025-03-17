@@ -9,6 +9,9 @@ import 'shopping.dart';
 import 'profile.dart';
 import 'whatsnew.dart';
 import 'customize.dart'; // Redirects to CustomizePage
+import '../auth/auth_service.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -22,20 +25,63 @@ class _HomePageState extends State<HomePage> {
   bool _isSearching = false;
   int _selectedIndex = 0;
   final List<Widget> _pages = [];
+  final AuthService authService = AuthService();
+
+  String _firstname = ''; // Default username
   
   // Define colors for consistency
   final Color primaryGreen = const Color(0xFF207008); // Deeper green
   final Color secondaryGreen = const Color(0xFF46C221); // Medium green
   final Color lightGreen = const Color(0xFFE8F5E9); // Light green background
   final Color accentGreen = const Color(0xFF78F951); // Accent green
-  
+
   @override
   void initState() {
     super.initState();
+    _fetchUserDetails();
+
+    // Force a UI update after a short delay
+    Future.delayed(const Duration(milliseconds: 500), () {
+      if (mounted) {
+        setState(() {});
+      }
+    });
+
     _pages.add(_buildHomeContent());
     _pages.add(const ShoppingPage());
     _pages.add(const ProfilePage());
   }
+
+
+
+
+  void _fetchUserDetails() async {
+    User? user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      try {
+        DocumentSnapshot userDoc = await FirebaseFirestore.instance
+            .collection('users')
+            .doc(user.uid)
+            .get();
+
+        if (userDoc.exists) {
+          final fetchedFirstname = userDoc['first_name'] ?? 'No username';// Debugging
+
+          setState(() {
+            _firstname = fetchedFirstname;// Debugging
+          });
+        } else {
+          print('User document does not exist');
+        }
+      } catch (e) {
+        print('Error fetching user details: $e');
+      }
+    }
+  }
+
+
+
+
   
   @override
   void dispose() {
@@ -64,7 +110,11 @@ class _HomePageState extends State<HomePage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                _buildAppBar(),
+                Builder( // ✅ This ensures it updates when _username changes
+                  builder: (context) { // Debugging
+                    return _buildAppBar();
+                  },
+                ),
                 _buildMainContent(),
               ],
             ),
@@ -125,7 +175,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ),
                         TextSpan(
-                          text: 'User',
+                          text: _firstname.isEmpty ? '...' : _firstname,
                           style: GoogleFonts.outfit(
                             fontSize: 24,
                             color: primaryGreen,
@@ -834,7 +884,14 @@ class _HomePageState extends State<HomePage> {
   
   Widget buildDashboard(BuildContext context) {
     return Scaffold(
-      body: _pages[_selectedIndex],
+      body: IndexedStack( // ✅ Keeps state but allows updates
+        index: _selectedIndex,
+        children: [
+          _buildHomeContent(), // ✅ This will rebuild when _username updates
+          const ShoppingPage(),
+          const ProfilePage(),
+        ],
+      ),
       bottomNavigationBar: Container(
         height: 80.0,
         decoration: BoxDecoration(

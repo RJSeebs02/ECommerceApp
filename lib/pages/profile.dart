@@ -1,3 +1,4 @@
+import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import '../auth/auth_service.dart';
@@ -24,6 +25,8 @@ class _ProfilePageState extends State<ProfilePage> {
   
   // Controllers for text fields
   final _usernameController = TextEditingController(text: '');
+  final _firstnameController = TextEditingController(text: '');
+  final _lastnameController = TextEditingController(text: '');
   final _emailController = TextEditingController(text: '');
   final _birthdayController = TextEditingController(text: '');
   final _genderController = TextEditingController(text: '');
@@ -49,6 +52,8 @@ class _ProfilePageState extends State<ProfilePage> {
           setState(() {
             _emailController.text = user.email ?? 'No email';
             _usernameController.text = userDoc['username'] ?? 'No username';
+            _firstnameController.text = userDoc['first_name'] ?? 'No first name';
+            _lastnameController.text = userDoc['last_name'] ?? 'No last name';
             _phoneController.text = userDoc['phone'] ?? 'No phone number';
             _birthdayController.text = userDoc['birthday'] ?? 'No birthday';
             _genderController.text = userDoc['gender'] ?? 'No gender';
@@ -66,6 +71,20 @@ class _ProfilePageState extends State<ProfilePage> {
     _emailController.dispose();
     _phoneController.dispose();
     super.dispose();
+  }
+
+  void _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(1900),
+      lastDate: DateTime.now(),
+    );
+    if (picked != null) {
+      setState(() {
+        _birthdayController.text = DateFormat('yyyy-MM-dd').format(picked);
+      });
+    }
   }
 
   @override
@@ -387,7 +406,7 @@ class _ProfilePageState extends State<ProfilePage> {
     return Column(
       children: [
         _buildProfileField(
-          'Name',
+          'Username',
           _usernameController,
           Icons.person_outline,
         ),
@@ -401,10 +420,28 @@ class _ProfilePageState extends State<ProfilePage> {
           children: [
             Expanded(
               child: _buildProfileField(
+                'First Name',
+                _firstnameController,
+                Icons.person_outline,
+              ),
+            ),
+            const SizedBox(width: 20),
+            Expanded(
+              child: _buildProfileField(
+                'Last Name',
+                _lastnameController,
+                Icons.person_outline,
+              ),
+            ),
+          ],
+        ),
+        Row(
+          children: [
+            Expanded(
+              child: _buildProfileField(
                 'Birthday',
                 _birthdayController,
                 Icons.calendar_today_outlined,
-                validator: _validateBirthday,
               ),
             ),
             const SizedBox(width: 20),
@@ -427,68 +464,111 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-  Widget _buildProfileField(
-    String label,
-    TextEditingController controller,
-    IconData icon, {
-    String? Function(String?)? validator,
-  }) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 24),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            label,
-            style: GoogleFonts.inter(
-              color: AppColors.defaultText,
-              fontSize: 14,
-              fontWeight: FontWeight.w500,
-            ),
+  
+
+ Widget _buildProfileField(
+  String label,
+  TextEditingController controller,
+  IconData icon, {
+  String? Function(String?)? validator,
+}) {
+  return Padding(
+    padding: const EdgeInsets.only(bottom: 24),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          label,
+          style: GoogleFonts.inter(
+            color: AppColors.defaultText,
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
           ),
-          const SizedBox(height: 8),
-          if (_isEditing)
-            TextFormField(
-              controller: controller,
-              validator: validator,
-              decoration: InputDecoration(
-                prefixIcon: Icon(icon, color: Colors.grey[400]),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
+        ),
+        const SizedBox(height: 8),
+
+        // ✅ If Editing Mode is Active
+        if (_isEditing)
+          label == 'Gender' 
+            ? DropdownButtonFormField<String>(
+                value: _genderController.text.isNotEmpty ? _genderController.text : null,
+                onChanged: (String? newValue) {
+                  setState(() {
+                    _genderController.text = newValue!;
+                  });
+                },
+                items: ['Male', 'Female', 'Other']
+                    .map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value),
+                  );
+                }).toList(),
+                decoration: InputDecoration(
+                  prefixIcon: Icon(icon, color: Colors.grey[400]),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide(color: Colors.grey[300]!),
+                  ),
+                  filled: true,
                 ),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
-                  borderSide: BorderSide(color: Colors.grey[300]!),
+              )
+            : TextFormField(
+                controller: controller,
+                validator: validator,
+                readOnly: label == 'Email' || label == 'Birthday', // ✅ Make Email & Birthday Always Read-Only
+                onTap: () {
+                  if (label == 'Birthday') {
+                    _selectDate(context); // ✅ Opens Date Picker on Tap
+                  }
+                },
+                decoration: InputDecoration(
+                  prefixIcon: Icon(icon, color: Colors.grey[400]),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide(color: Colors.grey[300]!),
+                  ),
+                  filled: label == 'Email', // ✅ Darken background for Email
+                  fillColor: label == 'Email' ? Colors.grey[200] : Colors.transparent,
                 ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
-                  borderSide: BorderSide(color: const Color(0xFF46C221)),
+                style: TextStyle(
+                  color: label == 'Email' ? Colors.grey[600] : Colors.black,
+                ),
+              )
+
+        // ✅ If NOT Editing, Show Read-Only Text
+        else
+          Row(
+            children: [
+              Icon(icon, color: Colors.grey[400], size: 20),
+              const SizedBox(width: 8),
+              Text(
+                controller.text.isEmpty ? 'Not Set' : controller.text,
+                style: GoogleFonts.outfit(
+                  color: Colors.black,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
                 ),
               ),
-            )
-          else
-            Row(
-              children: [
-                Icon(icon, color: Colors.grey[400], size: 20),
-                const SizedBox(width: 8),
-                Text(
-                  controller.text,
-                  style: GoogleFonts.outfit(
-                    color: Colors.black,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-              ],
-            ),
-          if (!_isEditing) ...[
-            const SizedBox(height: 8),
-            const Divider(height: 1),
-          ],
+            ],
+          ),
+
+        if (!_isEditing) ...[
+          const SizedBox(height: 8),
+          const Divider(height: 1),
         ],
-      ),
-    );
-  }
+      ],
+    ),
+  );
+}
+
+
 
   String? _validateEmail(String? value) {
     if (value == null || value.isEmpty) {
@@ -626,6 +706,8 @@ class _ProfilePageState extends State<ProfilePage> {
           //'last_name': _lastNameController.text.trim(),
           'email': _emailController.text.trim(),
           'username': _usernameController.text.trim(),
+          'first_name': _firstnameController.text.trim(),
+          'last_name': _lastnameController.text.trim(),
           'phone': _phoneController.text.trim(),
           'birthday': _birthdayController.text.trim(),
           'gender': _genderController.text.trim(),

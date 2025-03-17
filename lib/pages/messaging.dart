@@ -185,7 +185,7 @@ class _MessagingPageState extends State<MessagingPage> with SingleTickerProvider
           Expanded(
             child: TextFormField(
               decoration: InputDecoration(
-                hintText: 'Type your message...',
+                hintText: 'Message',
                 hintStyle: GoogleFonts.inter(
                   fontSize: 14,
                   fontWeight: FontWeight.w400,
